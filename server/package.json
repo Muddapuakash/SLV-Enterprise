@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/tsx/dist/cli.mjs watch src/index.ts",
     "build": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/typescript/bin/tsc",
-    "start": "C:\\PROGRA~1\\nodejs\\node.exe dist/index.js",
+    "start": "node dist/index.js",
+    "start:win": "C:\\PROGRA~1\\nodejs\\node.exe dist/index.js",
+    "build:prod": "npx prisma generate && npx tsc",
     "db:generate": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js generate",
     "db:push": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js db push",
     "db:migrate": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js migrate dev",

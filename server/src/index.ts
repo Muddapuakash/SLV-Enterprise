@@ -71,9 +71,9 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/customer', customerRoutes);
 app.use('/api/technician', technicianRoutes);
 
-// ── Health Check ─────────────────────────────────────────────
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// ── Health Check ──────────────────────────────────────────────
+app.get(['/health', '/api/health'], (_req, res) => {
+  res.json({ status: 'ok', service: 'SV Enterprises API', timestamp: new Date().toISOString() });
 });
 
 // ── 404 ──────────────────────────────────────────────────────
