@@ -1,0 +1,615 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
+  TECHNICIAN
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  FOLLOW_UP
+  CONVERTED
+  LOST
+}
+
+enum ConnectionStatus {
+  CONNECTED
+  DISCONNECTED
+  DEGRADED
+  SUSPENDED
+  PENDING
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  ASSIGNED
+  RESOLVED
+  CLOSED
+}
+
+enum TicketCategory {
+  INTERNET_NOT_WORKING
+  SLOW_INTERNET
+  WIFI_PROBLEM
+  ROUTER_PROBLEM
+  CCTV_PROBLEM
+  NEW_CONNECTION
+  RELOCATION
+  OTHER
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum JobStatus {
+  PENDING
+  ACCEPTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum ServiceType {
+  INTERNET
+  WIFI
+  CCTV
+  CABLING
+  ROUTER
+  OTHER
+}
+
+enum ServiceRequestStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING
+}
+
+enum InvoiceStatus {
+  PENDING
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum BillingCycle {
+  MONTHLY
+  QUARTERLY
+  ANNUAL
+}
+
+enum DeviceType {
+  ROUTER
+  OLT
+  SWITCH
+  ACCESS_POINT
+  ONT
+  OTHER
+}
+
+enum DeviceStatus {
+  ONLINE
+  OFFLINE
+  DEGRADED
+  UNKNOWN
+}
+
+enum NotificationType {
+  INFO
+  SUCCESS
+  WARNING
+  ERROR
+}
+
+// ============================================================
+// USER
+// ============================================================
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(CUSTOMER)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  customer     Customer?
+  technician   Technician?
+  notifications Notification[]
+  auditLogs    AuditLog[]
+  refreshTokens RefreshToken[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+}
+
+// ============================================================
+// CUSTOMER
+// ============================================================
+
+model Customer {
+  id               String         @id @default(cuid())
+  customerId       String         @unique // SV000001
+  userId           String?        @unique
+  user             User?          @relation(fields: [userId], references: [id])
+  name             String
+  phone            String
+  email            String?
+  address          String
+  area             String
+  pincode          String
+  status           CustomerStatus @default(PENDING)
+  installationDate DateTime?
+  renewalDate      DateTime?
+  notes            String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  subscriptions    Subscription[]
+  connections      Connection[]
+  tickets          Ticket[]
+  serviceRequests  ServiceRequest[]
+  invoices         Invoice[]
+  devices          Device[]
+  cctvCameras      CCTVCamera[]
+  accessPoints     AccessPoint[]
+
+  @@index([customerId])
+  @@index([phone])
+  @@index([area])
+  @@index([pincode])
+  @@index([status])
+}
+
+// ============================================================
+// PLAN
+// ============================================================
+
+model Plan {
+  id           String       @id @default(cuid())
+  name         String
+  speed        String       // e.g. "50 Mbps", "100 Mbps"
+  price        Float
+  billingCycle BillingCycle @default(MONTHLY)
+  features     String[]
+  isPopular    Boolean      @default(false)
+  isActive     Boolean      @default(true)
+  isSample     Boolean      @default(true) // marked until admin replaces
+  sortOrder    Int          @default(0)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  subscriptions Subscription[]
+  leads         Lead[]
+
+  @@index([isActive])
+  @@index([isSample])
+}
+
+// ============================================================
+// SUBSCRIPTION
+// ============================================================
+
+model Subscription {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  planId     String
+  plan       Plan     @relation(fields: [planId], references: [id])
+  startDate  DateTime @default(now())
+  endDate    DateTime?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([planId])
+  @@index([isActive])
+}
+
+// ============================================================
+// CONNECTION
+// ============================================================
+
+model Connection {
+  id          String           @id @default(cuid())
+  customerId  String
+  customer    Customer         @relation(fields: [customerId], references: [id])
+  status      ConnectionStatus @default(PENDING)
+  ipAddress   String?
+  macAddress  String?
+  deviceId    String?
+  lastChecked DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+}
+
+// ============================================================
+// LEAD
+// ============================================================
+
+model Lead {
+  id           String     @id @default(cuid())
+  name         String
+  phone        String
+  email        String?
+  address      String?
+  area         String?
+  pincode      String?
+  planId       String?
+  plan         Plan?      @relation(fields: [planId], references: [id])
+  serviceType  ServiceType?
+  status       LeadStatus @default(NEW)
+  notes        String?
+  assignedTo   String?    // Technician/Staff ID
+  source       String?    // website, referral, etc.
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([status])
+  @@index([phone])
+  @@index([createdAt])
+}
+
+// ============================================================
+// SERVICE REQUEST
+// ============================================================
+
+model ServiceRequest {
+  id            String               @id @default(cuid())
+  customerId    String?
+  customer      Customer?            @relation(fields: [customerId], references: [id])
+  name          String
+  phone         String
+  email         String?
+  location      String
+  area          String?
+  pincode       String?
+  serviceType   ServiceType
+  description   String
+  preferredDate DateTime?
+  status        ServiceRequestStatus @default(PENDING)
+  assignedTo    String?
+  notes         String?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  job           Job?
+
+  @@index([status])
+  @@index([serviceType])
+  @@index([createdAt])
+}
+
+// ============================================================
+// SUPPORT TICKET
+// ============================================================
+
+model Ticket {
+  id           String          @id @default(cuid())
+  ticketNo     String          @unique // SV-TKT-000001
+  customerId   String?
+  customer     Customer?       @relation(fields: [customerId], references: [id])
+  guestName    String?
+  guestPhone   String?
+  guestEmail   String?
+  category     TicketCategory  @default(OTHER)
+  status       TicketStatus    @default(OPEN)
+  priority     TicketPriority  @default(MEDIUM)
+  assignedTo   String?
+  resolvedAt   DateTime?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  messages     TicketMessage[]
+  jobs         Job[]
+
+  @@index([ticketNo])
+  @@index([status])
+  @@index([customerId])
+  @@index([createdAt])
+}
+
+model TicketMessage {
+  id         String   @id @default(cuid())
+  ticketId   String
+  ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  senderId   String?
+  senderName String?
+  message    String
+  isInternal Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([ticketId])
+}
+
+// ============================================================
+// TECHNICIAN
+// ============================================================
+
+model Technician {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id])
+  name           String
+  phone          String
+  specialization String[]
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  jobs           Job[]
+
+  @@index([isActive])
+}
+
+// ============================================================
+// JOB
+// ============================================================
+
+model Job {
+  id               String          @id @default(cuid())
+  ticketId         String?
+  ticket           Ticket?         @relation(fields: [ticketId], references: [id])
+  serviceRequestId String?         @unique
+  serviceRequest   ServiceRequest? @relation(fields: [serviceRequestId], references: [id])
+  technicianId     String
+  technician       Technician      @relation(fields: [technicianId], references: [id])
+  status           JobStatus       @default(PENDING)
+  notes            String?
+  photos           String[]
+  scheduledAt      DateTime?
+  startedAt        DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@index([technicianId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ============================================================
+// PROJECT (portfolio)
+// ============================================================
+
+model Project {
+  id          String      @id @default(cuid())
+  title       String
+  location    String
+  service     ServiceType
+  description String
+  imageUrl    String?
+  isSample    Boolean     @default(true)
+  isPublished Boolean     @default(true)
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([isPublished])
+  @@index([isSample])
+}
+
+// ============================================================
+// COVERAGE AREA
+// ============================================================
+
+model CoverageArea {
+  id          String      @id @default(cuid())
+  area        String
+  city        String      @default("Bangalore")
+  pincode     String
+  serviceType ServiceType
+  available   Boolean     @default(true)
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@unique([pincode, serviceType])
+  @@index([pincode])
+  @@index([available])
+}
+
+// ============================================================
+// DEVICE
+// ============================================================
+
+model Device {
+  id          String       @id @default(cuid())
+  name        String
+  type        DeviceType
+  ipAddress   String?
+  macAddress  String?
+  customerId  String?
+  customer    Customer?    @relation(fields: [customerId], references: [id])
+  status      DeviceStatus @default(UNKNOWN)
+  location    String?
+  lastSeen    DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([type])
+}
+
+// ============================================================
+// CCTV CAMERA
+// ============================================================
+
+model CCTVCamera {
+  id         String       @id @default(cuid())
+  name       String
+  location   String
+  customerId String?
+  customer   Customer?    @relation(fields: [customerId], references: [id])
+  cameraType String       // IP, Analog, PTZ, etc.
+  status     DeviceStatus @default(UNKNOWN)
+  notes      String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([customerId])
+}
+
+// ============================================================
+// ACCESS POINT (WiFi)
+// ============================================================
+
+model AccessPoint {
+  id         String       @id @default(cuid())
+  name       String
+  ipAddress  String?
+  macAddress String?
+  customerId String?
+  customer   Customer?    @relation(fields: [customerId], references: [id])
+  status     DeviceStatus @default(UNKNOWN)
+  location   String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([customerId])
+}
+
+// ============================================================
+// INVOICE
+// ============================================================
+
+model Invoice {
+  id           String        @id @default(cuid())
+  invoiceNo    String        @unique
+  customerId   String
+  customer     Customer      @relation(fields: [customerId], references: [id])
+  amount       Float
+  dueDate      DateTime
+  paidAt       DateTime?
+  status       InvoiceStatus @default(PENDING)
+  description  String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  payments     Payment[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+// ============================================================
+// PAYMENT
+// ============================================================
+
+model Payment {
+  id            String   @id @default(cuid())
+  invoiceId     String
+  invoice       Invoice  @relation(fields: [invoiceId], references: [id])
+  amount        Float
+  method        String   // cash, upi, bank_transfer
+  transactionId String?
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  @@index([invoiceId])
+}
+
+// ============================================================
+// NOTIFICATION
+// ============================================================
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType @default(INFO)
+  title     String
+  message   String
+  read      Boolean          @default(false)
+  link      String?
+  createdAt DateTime         @default(now())
+
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt])
+}
+
+// ============================================================
+// AUDIT LOG
+// ============================================================
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  entityId  String?
+  metadata  Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([entity])
+  @@index([createdAt])
+}
+
+// ============================================================
+// BUSINESS SETTINGS (CMS-like)
+// ============================================================
+
+model BusinessSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  label     String?
+  group     String?  @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@index([group])
+}

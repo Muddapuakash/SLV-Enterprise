@@ -1,0 +1,40 @@
+{
+  "name": "@sv/server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/tsx/dist/cli.mjs watch src/index.ts",
+    "build": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/typescript/bin/tsc",
+    "start": "C:\\PROGRA~1\\nodejs\\node.exe dist/index.js",
+    "db:generate": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js generate",
+    "db:push": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js db push",
+    "db:migrate": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js migrate dev",
+    "db:seed": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/tsx/dist/cli.mjs prisma/seed.ts",
+    "db:studio": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/prisma/build/index.js studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "express-rate-limit": "^7.5.1",
+    "helmet": "^7.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "socket.io": "^4.8.3",
+    "uuid": "^9.0.1",
+    "winston": "^3.19.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.25",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.19.43",
+    "@types/uuid": "^9.0.8",
+    "prisma": "^5.22.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3"
+  }
+}

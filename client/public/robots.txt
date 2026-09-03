@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /technician/
+Disallow: /customer/
+Disallow: /api/
+
+Sitemap: https://sventerprises.in/sitemap.xml
