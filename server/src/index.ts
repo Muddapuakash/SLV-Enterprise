@@ -31,13 +31,30 @@ export const prisma = new PrismaClient({
 const corsOrigin = (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
   // Allow requests with no origin (e.g., mobile apps, curl, Postman)
   if (!origin) return callback(null, true);
-  // In development: allow any localhost port
-  if (process.env.NODE_ENV === 'development' && /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+
+  // Allow any localhost port
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
     return callback(null, true);
   }
-  // In production: restrict to configured origin
-  const allowed = (process.env.CORS_ORIGIN || '').split(',').map(o => o.trim());
+
+  const envCors = process.env.CORS_ORIGIN?.trim();
+  // Allow wildcard
+  if (!envCors || envCors === '*') {
+    return callback(null, true);
+  }
+
+  // Allow all Vercel deployment domains (*.vercel.app)
+  try {
+    const url = new URL(origin);
+    if (url.hostname.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+  } catch {}
+
+  // Allow configured origins
+  const allowed = envCors.split(',').map(o => o.trim());
   if (allowed.includes(origin)) return callback(null, true);
+
   callback(new Error(`CORS blocked: ${origin}`));
 };
 
