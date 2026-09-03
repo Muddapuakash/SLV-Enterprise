@@ -1,10 +1,12 @@
 import { io, Socket } from 'socket.io-client';
+import { getBaseURL } from './api';
 
 let socket: Socket | null = null;
 
 export function getSocket(token?: string): Socket {
   if (!socket) {
-    socket = io(import.meta.env.VITE_SOCKET_URL || '', {
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || getBaseURL();
+    socket = io(socketUrl === '/api' ? '' : socketUrl, {
       auth: { token: token || localStorage.getItem('sv_access_token') || '' },
       autoConnect: true,
       reconnectionAttempts: 5,

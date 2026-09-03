@@ -1,7 +1,16 @@
 import axios from 'axios';
 
+export const getBaseURL = () => {
+  let url = (import.meta.env.VITE_API_URL || '').trim();
+  if (!url) return '/api';
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = `https://${url}`;
+  }
+  return url.replace(/\/+$/, '');
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: getBaseURL(),
   withCredentials: true,
   timeout: 15000,
 });
