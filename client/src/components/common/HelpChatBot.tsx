@@ -23,49 +23,49 @@ interface QuickReply {
 // ──────────────────────────────────────────────
 // Bot Knowledge Base
 // ──────────────────────────────────────────────
-const FAQ: Record<string, { answer: string; followUps?: string[] }> = {
+const FAQ: Record<string, { text: string; followUps?: string[] }> = {
   plans: {
-    answer: `📶 Here are our current broadband plans:\n\n• **Basic** — 50 Mbps @ ₹499/month\n• **Standard** — 100 Mbps @ ₹799/month ⭐ Most Popular\n• **Premium** — 200 Mbps @ ₹1,199/month\n• **Ultra** — 500 Mbps @ ₹1,999/month\n\nAll plans include free installation and unlimited data. Visit our Plans page for details!`,
+    text: `📶 Here are our current broadband plans:\n\n• **Basic** — 50 Mbps @ ₹499/month\n• **Standard** — 100 Mbps @ ₹799/month ⭐ Most Popular\n• **Premium** — 200 Mbps @ ₹1,199/month\n• **Ultra** — 500 Mbps @ ₹1,999/month\n\nAll plans include free installation and unlimited data. Visit our Plans page for details!`,
     followUps: ['coverage', 'request', 'contact'],
   },
   coverage: {
-    answer: `📍 We currently serve the following areas in Bangalore:\n\n• Vijinapura (Pincode: 560016)\n• Dooravani Nagar (Pincode: 560016)\n• KR Puram (surrounding areas)\n\nUse our Coverage Checker to see exact availability at your address.`,
+    text: `📍 We currently serve the following areas in Bangalore:\n\n• Vijinapura (Pincode: 560016)\n• Dooravani Nagar (Pincode: 560016)\n• KR Puram (surrounding areas)\n\nUse our Coverage Checker to see exact availability at your address.`,
     followUps: ['plans', 'request', 'contact'],
   },
   internet: {
-    answer: `🔧 For internet issues, try these steps:\n\n1. **Restart your router** — unplug for 30 seconds, then plug back in\n2. **Check all cables** are firmly connected\n3. **Wait 2 minutes** for the router to fully reconnect\n4. If the issue persists, check if the lights on your router are normal\n\nStill not working? Our technicians are available 24/7!`,
+    text: `🔧 For internet issues, try these steps:\n\n1. **Restart your router** — unplug for 30 seconds, then plug back in\n2. **Check all cables** are firmly connected\n3. **Wait 2 minutes** for the router to fully reconnect\n4. If the issue persists, check if the lights on your router are normal\n\nStill not working? Our technicians are available 24/7!`,
     followUps: ['ticket', 'contact', 'reboot'],
   },
   slow: {
-    answer: `🐢 Slow internet? Here's what to try:\n\n1. Connect your device **directly via ethernet cable** to rule out WiFi interference\n2. **Restart your router** (unplug 30 sec)\n3. Check if **multiple devices** are streaming/downloading simultaneously\n4. Run a speed test at **fast.com** and note the result\n5. If speeds are consistently below your plan speed, raise a ticket — we'll investigate!`,
+    text: `🐢 Slow internet? Here's what to try:\n\n1. Connect your device **directly via ethernet cable** to rule out WiFi interference\n2. **Restart your router** (unplug 30 sec)\n3. Check if **multiple devices** are streaming/downloading simultaneously\n4. Run a speed test at **fast.com** and note the result\n5. If speeds are consistently below your plan speed, raise a ticket — we'll investigate!`,
     followUps: ['ticket', 'plans', 'contact'],
   },
   wifi: {
-    answer: `📡 WiFi problems? Here's how to improve it:\n\n1. Place your router in a **central, elevated location**\n2. Keep it away from **microwaves, cordless phones** and thick walls\n3. Make sure no one has **changed your WiFi password**\n4. Try **restarting the router** — unplug for 30 seconds\n5. For large homes/offices, we offer **WiFi mesh extension** services!\n\nWant us to optimize your WiFi setup?`,
+    text: `📡 WiFi problems? Here's how to improve it:\n\n1. Place your router in a **central, elevated location**\n2. Keep it away from **microwaves, cordless phones** and thick walls\n3. Make sure no one has **changed your WiFi password**\n4. Try **restarting the router** — unplug for 30 seconds\n5. For large homes/offices, we offer **WiFi mesh extension** services!\n\nWant us to optimize your WiFi setup?`,
     followUps: ['request', 'ticket', 'contact'],
   },
   cctv: {
-    answer: `📷 Our CCTV services include:\n\n• IP Camera installation (indoor & outdoor)\n• NVR/DVR setup with remote viewing\n• Night vision cameras\n• Cloud & local storage solutions\n• Free site survey before installation\n• Annual maintenance packages\n\nWe handle everything — supply, installation & configuration!`,
+    text: `📷 Our CCTV services include:\n\n• IP Camera installation (indoor & outdoor)\n• NVR/DVR setup with remote viewing\n• Night vision cameras\n• Cloud & local storage solutions\n• Free site survey before installation\n• Annual maintenance packages\n\nWe handle everything — supply, installation & configuration!`,
     followUps: ['request', 'contact'],
   },
   billing: {
-    answer: `💳 Billing & payments:\n\n• Payments are due **monthly** as per your plan cycle\n• We accept **online transfers, UPI, and cash**\n• WhatsApp us your payment screenshot for instant confirmation\n• For billing queries, contact us directly:\n  📞 9620406789 or 6302249065\n  📧 sventerprises161718@gmail.com`,
+    text: `💳 Billing & payments:\n\n• Payments are due **monthly** as per your plan cycle\n• We accept **online transfers, UPI, and cash**\n• WhatsApp us your payment screenshot for instant confirmation\n• For billing queries, contact us directly:\n  📞 9620406789 or 6302249065\n  📧 sventerprises161718@gmail.com`,
     followUps: ['contact', 'plans'],
   },
   contact: {
-    answer: `📞 Reach us anytime:\n\n• **Phone/WhatsApp**: 9620406789\n• **Alt Number**: 6302249065\n• **Email**: sventerprises161718@gmail.com\n• **Address**: 3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore 560016\n• **Hours**: 9 AM – 9 PM (Support: 24/7 for outages)`,
+    text: `📞 Reach us anytime:\n\n• **Phone/WhatsApp**: 9620406789\n• **Alt Number**: 6302249065\n• **Email**: sventerprises161718@gmail.com\n• **Address**: 3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore 560016\n• **Hours**: 9 AM – 9 PM (Support: 24/7 for outages)`,
     followUps: ['plans', 'coverage'],
   },
   ticket: {
-    answer: `🎫 To raise a support ticket:\n\n1. Visit our **Support page** from the navigation menu\n2. Select your issue category\n3. Describe the problem\n4. Submit — you'll get a ticket ID instantly (e.g. SV-TKT-000001)\n\nOr call us directly at **9620406789** for urgent issues and we'll dispatch a technician!`,
+    text: `🎫 To raise a support ticket:\n\n1. Visit our **Support page** from the navigation menu\n2. Select your issue category\n3. Describe the problem\n4. Submit — you'll get a ticket ID instantly (e.g. SV-TKT-000001)\n\nOr call us directly at **9620406789** for urgent issues and we'll dispatch a technician!`,
     followUps: ['contact', 'internet'],
   },
   request: {
-    answer: `📝 To request a new connection or service:\n\n1. Go to **"Get Connected"** or **"Request Service"** on our website\n2. Fill in your details and preferred service\n3. We'll call you within **24 hours** to confirm\n\nAlternatively, WhatsApp or call us at **9620406789** for immediate assistance!`,
+    text: `📝 To request a new connection or service:\n\n1. Go to **"Get Connected"** or **"Request Service"** on our website\n2. Fill in your details and preferred service\n3. We'll call you within **24 hours** to confirm\n\nAlternatively, WhatsApp or call us at **9620406789** for immediate assistance!`,
     followUps: ['plans', 'coverage', 'contact'],
   },
   reboot: {
-    answer: `🔄 How to properly restart your router:\n\n1. **Unplug** the power cable from your router\n2. Wait **30 full seconds** (not just 5!)\n3. **Plug back in** and wait 2 minutes for the connection to re-establish\n4. Check the **online/internet light** — it should be solid green or blue\n\nIf lights are blinking red or orange, there may be a line issue — call us at 9620406789!`,
+    text: `🔄 How to properly restart your router:\n\n1. **Unplug** the power cable from your router\n2. Wait **30 full seconds** (not just 5!)\n3. **Plug back in** and wait 2 minutes for the connection to re-establish\n4. Check the **online/internet light** — it should be solid green or blue\n\nIf lights are blinking red or orange, there may be a line issue — call us at 9620406789!`,
     followUps: ['internet', 'ticket', 'contact'],
   },
 };
@@ -91,7 +91,7 @@ function getBotResponse(input: string): { text: string; followUps?: string[] } {
   const text = input.toLowerCase();
 
   for (const [key, val] of Object.entries(FAQ)) {
-    if (text.includes(key)) return { text: val.answer, followUps: val.followUps };
+    if (text.includes(key)) return val;
   }
 
   if (text.match(/slow|speed|fast|mbps/)) return FAQ.slow;
