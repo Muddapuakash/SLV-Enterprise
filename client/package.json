@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/vite/bin/vite.js",
     "build": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/typescript/bin/tsc -b && C:\\PROGRA~1\\nodejs\\node.exe node_modules/vite/bin/vite.js build",
+    "build:prod": "npx tsc -b && npx vite build",
     "preview": "C:\\PROGRA~1\\nodejs\\node.exe node_modules/vite/bin/vite.js preview"
   },
   "dependencies": {
