@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
+import bcrypt from 'bcryptjs';
 import { prisma } from '../index';
 import { authenticate } from '../middleware/auth.middleware';
 import { requireAdmin } from '../middleware/rbac.middleware';
@@ -278,8 +279,7 @@ const technicianSchema = z.object({
 
 router.post('/technicians', validate(technicianSchema), async (req, res, next) => {
   try {
-    const argon2 = await import('argon2');
-    const passwordHash = await argon2.hash(req.body.password);
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
 
     const user = await prisma.user.create({
       data: { email: req.body.email, passwordHash, role: UserRole.TECHNICIAN },
