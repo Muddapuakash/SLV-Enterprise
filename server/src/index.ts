@@ -67,14 +67,20 @@ export const io = new Server(server, {
   },
 });
 
-// ── Middleware ───────────────────────────────────────────────
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: 'cross-origin' },
-}));
-
-app.use(cors({
+// ── CORS Configuration ───────────────────────────────────────
+const corsOptions: cors.CorsOptions = {
   origin: corsOrigin,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+};
+
+// ── Middleware ───────────────────────────────────────────────
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
 app.use(express.json({ limit: '10mb' }));
@@ -107,7 +113,7 @@ setupSocketHandler(io);
 // ── Start ─────────────────────────────────────────────────────
 const PORT = parseInt(process.env.PORT || '5000', 10);
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   logger.info(`🚀 SV Enterprises API running on port ${PORT}`);
   logger.info(`   Environment: ${process.env.NODE_ENV || 'development'}`);
 });
