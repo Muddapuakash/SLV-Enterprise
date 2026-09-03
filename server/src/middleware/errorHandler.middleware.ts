@@ -36,12 +36,10 @@ export function errorHandler(
     return;
   }
 
-  logger.error(`Unhandled error on ${req.method} ${req.path}: ${err.message}`);
+  logger.error(`Unhandled error on ${req.method} ${req.path}: ${err.message}`, { stack: err.stack });
 
   res.status(500).json({
     success: false,
-    message: process.env.NODE_ENV === 'production'
-      ? 'An internal server error occurred'
-      : err.message,
+    message: err.message || 'An internal server error occurred',
   });
 }
