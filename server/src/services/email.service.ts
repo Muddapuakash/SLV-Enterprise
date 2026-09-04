@@ -9,7 +9,7 @@ function getTransporter(): nodemailer.Transporter | null {
   if (transporter) return transporter;
 
   const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const pass = process.env.SMTP_PASS?.replace(/\s+/g, '');
 
   if (!user || !pass) {
     console.warn('[EmailService] SMTP_USER or SMTP_PASS not set — email alerts disabled.');
