@@ -6,6 +6,7 @@ import { validate } from '../middleware/validate.middleware';
 import { z } from 'zod';
 import { generateTicketNo, generateCustomerId } from '../utils/id.utils';
 import { NotificationService } from '../services/notification.service';
+import { sendSupportTicketEmail } from '../services/email.service';
 import { CustomerStatus, ConnectionStatus } from '@prisma/client';
 
 const router = Router();
@@ -171,6 +172,17 @@ router.post('/tickets', validate(createTicketSchema), async (req, res, next) => 
       title: 'New Customer Support Ticket',
       message: `Customer ${customer.name} opened ticket ${ticketNo}`,
       link: `/admin/tickets/${ticket.id}`,
+    });
+
+    // Email alert
+    sendSupportTicketEmail({
+      ticketNo,
+      name: customer.name,
+      phone: customer.phone,
+      email: customer.email ?? undefined,
+      category: req.body.category,
+      message: req.body.message,
+      isCustomer: true,
     });
 
     res.status(201).json({ success: true, data: { ticketNo, id: ticket.id } });

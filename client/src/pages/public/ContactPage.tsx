@@ -75,12 +75,12 @@ export default function ContactPage() {
       {/* Main Contact Section */}
       <section className="section-py bg-slate-50">
         <div className="container-max section-px">
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            
+
             {/* Left: Verified Business Info & Direct Action Buttons */}
             <div className="lg:col-span-6 space-y-6">
-              
+
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -208,7 +208,7 @@ export default function ContactPage() {
             {/* Right: Message / Connection Enquiry Form */}
             <div className="lg:col-span-6">
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                
+
                 <h3 className="text-xl font-bold text-slate-900 mb-1">Send Us a Message</h3>
                 <p className="text-xs text-slate-500 mb-6">
                   Have a question about internet availability, CCTV site inspection, or pricing? Drop your note below.

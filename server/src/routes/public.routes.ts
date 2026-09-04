@@ -5,6 +5,13 @@ import { validate } from '../middleware/validate.middleware';
 import { ServiceType } from '@prisma/client';
 import { generateTicketNo } from '../utils/id.utils';
 import { NotificationService } from '../services/notification.service';
+import {
+  sendLeadEmail,
+  sendServiceRequestEmail,
+  sendSupportTicketEmail,
+  sendCctvEnquiryEmail,
+  sendContactMessageEmail,
+} from '../services/email.service';
 
 const router = Router();
 
@@ -54,13 +61,26 @@ const leadSchema = z.object({
 router.post('/leads', validate(leadSchema), async (req, res, next) => {
   try {
     const lead = await prisma.lead.create({ data: req.body });
-    // Notify admins
+
+    // In-app notification (admins)
     await NotificationService.notifyAdmins({
       type: 'INFO',
       title: 'New Connection Enquiry',
       message: `New enquiry received from ${lead.name} (${lead.phone})`,
       link: `/admin/leads/${lead.id}`,
     });
+
+    // Email alert — fire-and-forget
+    sendLeadEmail({
+      name: lead.name,
+      phone: lead.phone,
+      email: req.body.email,
+      address: req.body.address,
+      area: req.body.area,
+      pincode: req.body.pincode,
+      serviceType: req.body.serviceType,
+    });
+
     res.status(201).json({ success: true, data: lead, message: 'Enquiry submitted successfully' });
   } catch (err) { next(err); }
 });
@@ -84,12 +104,27 @@ router.post('/service-requests', validate(serviceRequestSchema), async (req, res
     if (data.preferredDate) data.preferredDate = new Date(data.preferredDate);
 
     const request = await prisma.serviceRequest.create({ data });
+
     await NotificationService.notifyAdmins({
       type: 'INFO',
       title: 'New Service Request',
       message: `Service request (${request.serviceType}) from ${request.name}`,
       link: `/admin/service-requests/${request.id}`,
     });
+
+    // Email alert
+    sendServiceRequestEmail({
+      name: request.name,
+      phone: request.phone,
+      email: req.body.email,
+      location: request.location,
+      area: req.body.area,
+      pincode: req.body.pincode,
+      serviceType: request.serviceType,
+      description: request.description,
+      preferredDate: req.body.preferredDate,
+    });
+
     res.status(201).json({ success: true, data: request, message: 'Service request submitted' });
   } catch (err) { next(err); }
 });
@@ -166,11 +201,60 @@ router.post('/tickets', validate(ticketSchema), async (req, res, next) => {
       link: `/admin/tickets/${ticket.id}`,
     });
 
+    // Email alert
+    sendSupportTicketEmail({
+      ticketNo,
+      name: req.body.guestName,
+      phone: req.body.guestPhone,
+      email: req.body.guestEmail,
+      category: req.body.category,
+      message: req.body.message,
+      isCustomer: false,
+    });
+
     res.status(201).json({
       success: true,
       data: { ticketNo, id: ticket.id },
       message: 'Support ticket created successfully',
     });
+  } catch (err) { next(err); }
+});
+
+// ── POST /api/contact ─────────────────────────────────────
+const contactSchema = z.object({
+  name: z.string().min(2),
+  phone: z.string().min(10).max(15),
+  email: z.string().email().optional().or(z.literal('')),
+  message: z.string().min(5),
+});
+
+router.post('/contact', validate(contactSchema), async (req, res, next) => {
+  try {
+    // Store as a lead with notes
+    await prisma.lead.create({
+      data: {
+        name: req.body.name,
+        phone: req.body.phone,
+        email: req.body.email,
+        notes: req.body.message,
+      },
+    });
+
+    await NotificationService.notifyAdmins({
+      type: 'INFO',
+      title: 'New Contact Message',
+      message: `Message from ${req.body.name} (${req.body.phone})`,
+    });
+
+    // Email alert
+    sendContactMessageEmail({
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      message: req.body.message,
+    });
+
+    res.status(201).json({ success: true, message: 'Message sent successfully' });
   } catch (err) { next(err); }
 });
 
@@ -195,6 +279,24 @@ router.post('/cctv-enquiry', validate(cctvEnquirySchema), async (req, res, next)
         notes: `Cameras: ${req.body.cameraCount ?? 'Not specified'}. Date: ${req.body.preferredDate ?? 'Not specified'}. ${req.body.message ?? ''}`,
       },
     });
+
+    await NotificationService.notifyAdmins({
+      type: 'INFO',
+      title: 'New CCTV Site Visit Request',
+      message: `CCTV enquiry from ${req.body.name} at ${req.body.location}`,
+      link: `/admin/leads/${lead.id}`,
+    });
+
+    // Email alert
+    sendCctvEnquiryEmail({
+      name: req.body.name,
+      phone: req.body.phone,
+      location: req.body.location,
+      cameraCount: req.body.cameraCount,
+      preferredDate: req.body.preferredDate,
+      message: req.body.message,
+    });
+
     res.status(201).json({ success: true, data: lead, message: 'Site visit request submitted' });
   } catch (err) { next(err); }
 });
