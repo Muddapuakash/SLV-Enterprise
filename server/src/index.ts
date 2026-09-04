@@ -113,9 +113,24 @@ setupSocketHandler(io);
 // ── Start ─────────────────────────────────────────────────────
 const PORT = parseInt(process.env.PORT || '5000', 10);
 
-server.listen(PORT, '0.0.0.0', () => {
+server.listen(PORT, '0.0.0.0', async () => {
   logger.info(`🚀 SV Enterprises API running on port ${PORT}`);
   logger.info(`   Environment: ${process.env.NODE_ENV || 'development'}`);
+
+  const dbUrl = process.env.DATABASE_URL;
+  if (!dbUrl) {
+    logger.error('❌ DATABASE_URL is NOT SET in environment variables!');
+  } else {
+    const sanitized = dbUrl.replace(/:([^:@]+)@/, ':***@');
+    logger.info(`🔌 Database target: ${sanitized}`);
+  }
+
+  try {
+    await prisma.$connect();
+    logger.info('✅ Database connected successfully!');
+  } catch (err: any) {
+    logger.error(`❌ Database connection failed: ${err.message}`);
+  }
 });
 
 // Graceful shutdown
