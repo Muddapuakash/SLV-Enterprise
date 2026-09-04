@@ -11,18 +11,20 @@ async function main() {
   // ============================================================
   const settings = [
     { key: 'company_name', value: 'SV Enterprises', label: 'Company Name', group: 'company' },
-    { key: 'company_tagline', value: 'Fast. Reliable. Always.', label: 'Tagline', group: 'company' },
+    { key: 'company_tagline', value: 'High-Speed Broadband & Network Solutions', label: 'Tagline', group: 'company' },
     { key: 'company_phone_1', value: '9620406789', label: 'Primary Phone', group: 'contact' },
     { key: 'company_phone_2', value: '6302249065', label: 'Secondary Phone', group: 'contact' },
     { key: 'company_email', value: 'sventerprises161718@gmail.com', label: 'Email', group: 'contact' },
-    { key: 'company_address', value: '3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore, Karnataka 560016', label: 'Address', group: 'contact' },
-    { key: 'company_area', value: 'Vijinapura Dooravani Nagar', label: 'Area', group: 'contact' },
-    { key: 'company_city', value: 'Bangalore', label: 'City', group: 'contact' },
+    { key: 'company_address', value: 'Krishnamurti Building, No. 127, 3rd Cross, near FCI Main Road, Vijinapura, Dooravani Nagar, Bengaluru, Karnataka 560016', label: 'Address', group: 'contact' },
+    { key: 'company_landmark', value: 'Directly opposite FCI Godown, near Balamurli Temple', label: 'Primary Landmark', group: 'contact' },
+    { key: 'company_partners', value: 'Hathway, Excitel', label: 'Broadband ISP Partners', group: 'company' },
+    { key: 'company_area', value: 'Vijinapura, Dooravani Nagar', label: 'Area', group: 'contact' },
+    { key: 'company_city', value: 'Bengaluru', label: 'City', group: 'contact' },
     { key: 'company_pincode', value: '560016', label: 'Pincode', group: 'contact' },
     { key: 'whatsapp_number', value: '919620406789', label: 'WhatsApp Number (with country code)', group: 'contact' },
-    { key: 'hero_headline', value: 'Fast Internet. Reliable Connections.', label: 'Hero Headline', group: 'homepage' },
-    { key: 'hero_subtext', value: 'Connecting homes and businesses with high-speed internet, WiFi, CCTV and professional networking solutions.', label: 'Hero Subtext', group: 'homepage' },
-    { key: 'google_maps_url', value: 'https://maps.google.com/?q=Vijinapura+Dooravani+Nagar+Bangalore+560016', label: 'Google Maps URL', group: 'contact' },
+    { key: 'hero_headline', value: 'High-Speed Fiber Internet & Network Solutions', label: 'Hero Headline', group: 'homepage' },
+    { key: 'hero_subtext', value: 'Authorized Broadband Partner with Hathway & Excitel. Specializing in high-speed fiber broadband, CCTV/DVR/NVR surveillance, office LAN setups, fiber-optic splicing, chamber installations, and structural network cabling.', label: 'Hero Subtext', group: 'homepage' },
+    { key: 'google_maps_url', value: 'https://maps.google.com/?q=Krishnamurti+Building+No+127+3rd+Cross+Vijinapura+Dooravani+Nagar+Bengaluru+560016', label: 'Google Maps URL', group: 'contact' },
   ];
 
   for (const setting of settings) {

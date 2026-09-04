@@ -181,20 +181,39 @@ export default function AdminSettings() {
                 rows={2}
                 value={
                   settingsMap['company_address'] ||
-                  '3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore, Karnataka 560016'
+                  'Krishnamurti Building, No. 127, 3rd Cross, near FCI Main Road, Vijinapura, Dooravani Nagar, Bengaluru, Karnataka 560016'
                 }
                 onChange={(e) => handleChange('company_address', e.target.value)}
                 className="sv-input text-xs"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="sv-label">Primary Landmark</label>
+              <input
+                type="text"
+                value={settingsMap['company_landmark'] || 'Directly opposite FCI Godown, near Balamurli Temple'}
+                onChange={(e) => handleChange('company_landmark', e.target.value)}
+                className="sv-input text-xs"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="sv-label">Locality / Area</label>
                 <input
                   type="text"
-                  value={settingsMap['company_area'] || 'Vijinapura Dooravani Nagar'}
+                  value={settingsMap['company_area'] || 'Vijinapura, Dooravani Nagar'}
                   onChange={(e) => handleChange('company_area', e.target.value)}
+                  className="sv-input text-xs"
+                />
+              </div>
+              <div>
+                <label className="sv-label">City</label>
+                <input
+                  type="text"
+                  value={settingsMap['company_city'] || 'Bengaluru'}
+                  onChange={(e) => handleChange('company_city', e.target.value)}
                   className="sv-input text-xs"
                 />
               </div>
@@ -208,6 +227,16 @@ export default function AdminSettings() {
                   className="sv-input text-xs font-mono"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="sv-label">Broadband ISP Partners</label>
+              <input
+                type="text"
+                value={settingsMap['company_partners'] || 'Hathway, Excitel'}
+                onChange={(e) => handleChange('company_partners', e.target.value)}
+                className="sv-input text-xs"
+              />
             </div>
           </div>
 

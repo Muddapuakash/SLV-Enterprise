@@ -21,10 +21,16 @@ export default function Footer() {
               <BrandLogo variant="light" />
             </Link>
             <p className="text-sm text-slate-400 max-w-sm leading-relaxed">
-              Connecting homes and businesses with high-speed fiber internet, enterprise WiFi, CCTV surveillance, and turnkey networking solutions in Bangalore.
+              Commercial ISP and network solutions dealer in Bengaluru. High-speed fiber broadband powered by Hathway &amp; Excitel, CCTV/DVR/NVR security surveillance, office LAN setup, fiber-optic splicing, and structural network cabling.
             </p>
-            <div className="flex items-center gap-2 text-cyan-400 font-semibold text-xs tracking-wider uppercase">
-              <Zap className="w-4 h-4" /> Fast. Reliable. Always.
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-blue-900/40 border border-blue-500/30 text-blue-300 text-[11px] font-semibold">
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                Partners: Hathway &amp; Excitel
+              </span>
+              <div className="flex items-center gap-2 text-cyan-400 font-semibold text-xs tracking-wider uppercase">
+                <Zap className="w-4 h-4" /> Fast. Reliable. Always.
+              </div>
             </div>
 
             {/* Direct Action Chips */}
@@ -66,7 +72,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/services/cctv" className="hover:text-blue-400 transition-colors">
-                  CCTV Security Systems
+                  CCTV, DVR &amp; NVR Systems
                 </Link>
               </li>
               <li>
@@ -76,16 +82,16 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/plans" className="hover:text-blue-400 transition-colors">
-                  Broadband Tariff Plans
+                  Broadband Plans
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Company & Support */}
+          {/* Col 3: Quick Links */}
           <div>
             <h4 className="text-white font-bold text-sm tracking-wider uppercase mb-4">
-              Company &amp; Help
+              Company
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -94,18 +100,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/projects" className="hover:text-blue-400 transition-colors">
-                  Recent Installations
-                </Link>
-              </li>
-              <li>
                 <Link to="/coverage" className="hover:text-blue-400 transition-colors">
-                  Check Service Coverage
+                  Coverage Checker
                 </Link>
               </li>
               <li>
-                <Link to="/request-service" className="hover:text-blue-400 transition-colors">
-                  Raise Service Request
+                <Link to="/projects" className="hover:text-blue-400 transition-colors">
+                  Project Gallery
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-blue-400 transition-colors">
+                  Contact &amp; Location
                 </Link>
               </li>
               <li>
@@ -124,20 +130,24 @@ export default function Footer() {
           {/* Col 4: Contact info */}
           <div>
             <h4 className="text-white font-bold text-sm tracking-wider uppercase mb-4">
-              Bangalore Office
+              Bengaluru Office
             </h4>
             <div className="space-y-3 text-xs leading-relaxed text-slate-400">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-                <span>
-                  3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore, Karnataka 560016
-                </span>
+                <div>
+                  <span className="text-slate-200 font-semibold block">Krishnamurti Building, No. 127</span>
+                  <span>3rd Cross, near FCI Main Road, Vijinapura, Dooravani Nagar, Bengaluru, Karnataka 560016</span>
+                  <div className="mt-1 text-[11px] text-cyan-400/90 font-medium">
+                    Landmark: Opp. FCI Godown, Near Balamurli Temple
+                  </div>
+                </div>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-blue-400 shrink-0" />
                 <div className="flex flex-col">
-                  <a href="tel:9620406789" className="hover:text-blue-300">9620406789</a>
-                  <a href="tel:6302249065" className="hover:text-blue-300">6302249065</a>
+                  <a href="tel:9620406789" className="hover:text-blue-300">+91 96204 06789 (Primary)</a>
+                  <a href="tel:6302249065" className="hover:text-blue-300">+91 63022 49065 (Support)</a>
                 </div>
               </div>
               <div className="flex items-center gap-2.5">

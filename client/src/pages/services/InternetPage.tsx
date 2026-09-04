@@ -17,14 +17,20 @@ export default function InternetPage() {
       <section className="pt-32 pb-16 hero-bg text-white">
         <div className="container-max section-px">
           <div className="max-w-3xl">
-            <span className="inline-block px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-400/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
-              Broadband Services
-            </span>
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <span className="inline-block px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-400/30 rounded-full text-xs font-semibold uppercase tracking-wider">
+                Broadband Services
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 rounded-full text-xs font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-300" />
+                Authorized Partner: Hathway &amp; Excitel
+              </span>
+            </div>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-              High-Speed Fiber Internet
+              High-Speed Fiber Broadband
             </h1>
             <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-              Engineered for seamless 4K streaming, remote work videoconferencing, lag-free online gaming, and uninterrupted commercial workflows.
+              SV Enterprises partners with India&apos;s premier broadband providers like Hathway and Excitel to deliver dependable FTTH connectivity. Engineered for lag-free 4K streaming, home offices, and commercial high-traffic operations.
             </p>
             <div className="pt-6 flex flex-wrap gap-4">
               <Link to="/plans" className="btn-primary text-xs py-3 px-6">

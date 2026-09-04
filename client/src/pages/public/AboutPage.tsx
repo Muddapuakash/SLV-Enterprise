@@ -36,42 +36,61 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-5">
-              <span className="section-label">Who We Are</span>
-              <h2 className="section-title">Your Local Connectivity &amp; Networking Partner</h2>
+              <div className="flex items-center gap-2">
+                <span className="section-label">Who We Are</span>
+                <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-200">
+                  ISP &amp; Network Solutions Dealer
+                </span>
+              </div>
+              <h2 className="section-title">Your Trusted Broadband &amp; Network Infrastructure Partner</h2>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Operating out of Vijinapura, Dooravani Nagar in Bangalore, SV Enterprises was established to deliver genuine high-speed internet and complete networking solutions to residences, retail shops, and commercial offices.
+                SV Enterprises is a commercial business operating as a high-speed Internet Service Provider (ISP) and specialized network solutions dealer based in Bengaluru. We specialize in high-speed fiber broadband, CCTV camera networking, office LAN setup, and structural network cabling.
               </p>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Unlike distant national call centers where service requests get lost in ticketing queues, our team works directly on the ground. We handle everything from fiber line pulls to in-home WiFi configuration, CCTV camera deployments, and enterprise server rack cabling.
+                Through our strategic broadband partnerships with India&apos;s leading providers like <strong>Hathway</strong> and <strong>Excitel</strong>, we deliver robust, high-throughput internet connectivity. Beyond broadband, our field engineers execute complex network infrastructure projects — including precision fiber-optic splicing, chamber installations, enterprise routing &amp; switches, and complete surveillance setups with CCTV, DVR, and NVR systems.
               </p>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-slate-900 block mb-0.5">Headquartered in Bangalore:</span>
-                  3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore, Karnataka 560016
+              <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-2">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold text-slate-900 block text-sm">Official Bengaluru Headquarters:</span>
+                    <p className="text-slate-700 font-medium mt-0.5">
+                      Krishnamurti Building, No. 127, 3rd Cross, near FCI Main Road, Vijinapura, Dooravani Nagar, Bengaluru, Karnataka &ndash; 560016
+                    </p>
+                    <p className="text-blue-800 font-semibold mt-1">
+                      📍 Landmark: Directly opposite FCI Godown (Food Corporation of India) &amp; in close proximity to Balamurli Temple.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-5">
               <div className="p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 text-white shadow-xl space-y-6">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-cyan-400" />
-                  Verified Business Philosophy
-                </h3>
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-cyan-400">Core Credentials</span>
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2 mt-1">
+                    <ShieldCheck className="w-5 h-5 text-cyan-400" />
+                    Verified Dealer &amp; Operator
+                  </h3>
+                </div>
                 <ul className="space-y-4 text-xs text-slate-300">
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Prompt Physical Support:</strong> When your connection needs attention, our local field technicians resolve it on-site.</span>
+                    <span><strong>Authorized ISP Partnerships:</strong> Official partnerships with Hathway and Excitel for high-speed fiber internet distribution.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Transparent Solutions:</strong> Honest plan recommendations matching your actual bandwidth needs without hidden conditions.</span>
+                    <span><strong>Network Infrastructure:</strong> Premium routing, enterprise switches, fiber-optic fusion splicing, and chamber installations.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>End-to-End Execution:</strong> From core cabling to end-device connectivity, everything is handled by our team.</span>
+                    <span><strong>Surveillance Deployments:</strong> Complete CCTV, DVR, and NVR security systems with mobile live-stream monitoring.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Rapid Physical Ground Support:</strong> On-call field technicians in Vijinapura, Dooravani Nagar &amp; Bengaluru East.</span>
                   </li>
                 </ul>
               </div>
@@ -86,34 +105,42 @@ export default function AboutPage() {
         <div className="container-max section-px">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="section-label">What We Do</span>
-            <h2 className="section-title">End-to-End Technology Services</h2>
+            <h2 className="section-title">End-to-End Technology &amp; Network Services</h2>
             <p className="section-subtitle mx-auto">
-              Our service portfolio covers the entire connectivity lifecycle.
+              Our service portfolio covers the complete connectivity, security, and infrastructure lifecycle.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-100">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-200">
               <Zap className="w-8 h-8 text-blue-600 mb-4" />
-              <h3 className="text-base font-bold text-slate-900 mb-2">Broadband &amp; Fiber Internet</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">Fiber Broadband (FTTH)</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Delivering high-throughput fiber optic broadband to residential apartments, independent homes, and corporate offices with low latency.
+                High-speed fiber broadband in partnership with Hathway and Excitel. Symmetrical speeds, low latency, and unlimited data.
               </p>
             </div>
 
-            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-100">
-              <Users className="w-8 h-8 text-cyan-600 mb-4" />
-              <h3 className="text-base font-bold text-slate-900 mb-2">WiFi &amp; Local Area Networks</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Full-premise WiFi planning, dual-band and mesh router setups, access point installations, and network performance tuning.
-              </p>
-            </div>
-
-            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-100">
+            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-200">
               <ShieldCheck className="w-8 h-8 text-emerald-600 mb-4" />
-              <h3 className="text-base font-bold text-slate-900 mb-2">CCTV &amp; Infrastructure Cabling</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">CCTV, DVR &amp; NVR Systems</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Commercial and residential security camera installations with NVR storage, alongside structured CAT6 and optical fiber cabling.
+                Surveillance system installations involving HD IP cameras, DVR/NVR storage configurations, and remote mobile viewing.
+              </p>
+            </div>
+
+            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-200">
+              <Users className="w-8 h-8 text-cyan-600 mb-4" />
+              <h3 className="text-base font-bold text-slate-900 mb-2">Office LAN &amp; WiFi Setup</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Enterprise WiFi access points, mesh networks, VLAN configurations, and full-premise coverage for offices and businesses.
+              </p>
+            </div>
+
+            <div className="sv-card p-6 bg-white rounded-2xl border border-slate-200">
+              <Target className="w-8 h-8 text-purple-600 mb-4" />
+              <h3 className="text-base font-bold text-slate-900 mb-2">Cabling &amp; Splicing</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                CAT6 structured cabling, fiber-optic fusion splicing, chamber installations, server racks, and routing switch infrastructure.
               </p>
             </div>
           </div>

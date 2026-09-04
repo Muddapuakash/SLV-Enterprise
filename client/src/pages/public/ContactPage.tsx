@@ -83,11 +83,16 @@ export default function ContactPage() {
               
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">
-                    Official Headquarters
-                  </span>
-                  <h2 className="text-xl font-bold text-slate-900 mt-1">SV Enterprises (ISP)</h2>
-                  <p className="text-xs text-slate-500 mt-0.5">High Speed Internet &bull; CCTV &bull; Cabling &bull; WiFi</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+                      Official Headquarters
+                    </span>
+                    <span className="text-[10px] font-semibold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">
+                      Broadband Partners: Hathway &amp; Excitel
+                    </span>
+                  </div>
+                  <h2 className="text-xl font-bold text-slate-900 mt-1">SV Enterprises</h2>
+                  <p className="text-xs text-slate-500 mt-0.5">High-Speed ISP &amp; Network Solutions Dealer &bull; CCTV/DVR/NVR &bull; Structural Cabling</p>
                 </div>
 
                 <div className="space-y-4 text-sm text-slate-700 pt-2 border-t border-slate-100">
@@ -95,26 +100,38 @@ export default function ContactPage() {
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-semibold text-slate-900">Office Address:</div>
-                      <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
-                        3rd Cross near FCI Main Road,<br />
-                        Vijinapura Dooravani Nagar,<br />
-                        Bangalore, Karnataka 560016
+                      <div className="font-semibold text-slate-900">Registered Office Address:</div>
+                      <p className="text-xs text-slate-700 mt-0.5 leading-relaxed">
+                        <strong className="text-slate-900">Krishnamurti Building, No. 127</strong><br />
+                        3rd Cross, near FCI Main Road,<br />
+                        Vijinapura, Dooravani Nagar,<br />
+                        Bengaluru, Karnataka &ndash; 560016
                       </p>
                     </div>
+                  </div>
+
+                  {/* Primary Landmark Highlight Box */}
+                  <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/80 text-xs space-y-1">
+                    <div className="font-bold text-amber-950 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-500 inline-block" />
+                      Prominent Location Landmarks:
+                    </div>
+                    <p className="text-amber-900 leading-relaxed pl-3.5">
+                      Directly opposite the <strong>FCI Godown (Food Corporation of India)</strong> and in close proximity to the <strong>Balamurli Temple</strong>.
+                    </p>
                   </div>
 
                   {/* Phone */}
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-semibold text-slate-900">Phone Numbers:</div>
+                      <div className="font-semibold text-slate-900">Helpline Numbers:</div>
                       <div className="flex flex-col gap-1 text-xs text-slate-600 mt-0.5">
-                        <a href="tel:9620406789" className="hover:text-blue-600 font-medium">
-                          +91 9620406789 (Primary Helpline)
+                        <a href="tel:9620406789" className="hover:text-blue-600 font-semibold text-slate-800">
+                          +91 96204 06789 <span className="text-slate-500 font-normal">(Primary / WhatsApp)</span>
                         </a>
-                        <a href="tel:6302249065" className="hover:text-blue-600 font-medium">
-                          +91 6302249065 (Support Desk)
+                        <a href="tel:6302249065" className="hover:text-blue-600 font-semibold text-slate-800">
+                          +91 63022 49065 <span className="text-slate-500 font-normal">(Support Desk)</span>
                         </a>
                       </div>
                     </div>
@@ -127,7 +144,7 @@ export default function ContactPage() {
                       <div className="font-semibold text-slate-900">Official Email:</div>
                       <a
                         href="mailto:sventerprises161718@gmail.com"
-                        className="text-xs text-blue-600 hover:underline break-all"
+                        className="text-xs text-blue-600 hover:underline break-all font-medium"
                       >
                         sventerprises161718@gmail.com
                       </a>
@@ -142,7 +159,7 @@ export default function ContactPage() {
                     className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors shadow-sm"
                   >
                     <Phone className="w-4 h-4" />
-                    <span>Call Now</span>
+                    <span>Call Helpline</span>
                   </a>
 
                   <a
@@ -164,13 +181,13 @@ export default function ContactPage() {
                   </a>
 
                   <a
-                    href="https://maps.google.com/?q=Vijinapura+Dooravani+Nagar+Bangalore+560016"
+                    href="https://maps.google.com/?q=Krishnamurti+Building+No+127+3rd+Cross+Vijinapura+Dooravani+Nagar+Bengaluru+560016"
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors"
                   >
                     <Navigation className="w-4 h-4 text-slate-600" />
-                    <span>Get Directions</span>
+                    <span>Google Maps</span>
                   </a>
                 </div>
 

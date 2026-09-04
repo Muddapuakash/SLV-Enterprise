@@ -22,6 +22,7 @@ import {
   HardDrive,
   Cpu,
   Search,
+  MapPin,
 } from 'lucide-react';
 import { PlanDTO } from '@sv/shared';
 
@@ -109,35 +110,41 @@ export default function HomePage() {
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Brand Tagline Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wide">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>Stay Connected &bull; Stay Ahead</span>
+              {/* Brand Tagline & Partner Badge */}
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-semibold tracking-wide">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                  <span>Commercial ISP &bull; Network Solutions Dealer</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-xs font-medium">
+                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Partners: Hathway &amp; Excitel</span>
+                </div>
               </div>
 
               {/* Main Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
-                Fast Internet. <br />
+                High-Speed Fiber. <br />
                 <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-white bg-clip-text text-transparent">
-                  Reliable Connections.
+                  Complete Networks.
                 </span>
               </h1>
 
               {/* Supporting Text */}
               <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed">
-                Connecting homes and businesses with high-speed internet, WiFi, CCTV surveillance, and professional networking solutions in Bangalore.
+                Bengaluru&apos;s trusted dealer for high-speed fiber broadband, CCTV &amp; DVR/NVR surveillance, office LAN setups, fiber-optic splicing, chamber installations, and structural network cabling.
               </p>
 
               {/* Tagline Strip */}
               <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-medium text-cyan-200">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-cyan-400" /> High Speed Internet
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" /> High-Speed Internet
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-cyan-400" /> Reliable Connection
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" /> CCTV &amp; Surveillance
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-cyan-400" /> Better Experience
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" /> Structural Cabling
                 </span>
               </div>
 
@@ -170,10 +177,12 @@ export default function HomePage() {
                 </a>
               </div>
 
-              {/* Location Badge */}
+              {/* Location & Landmark Badge */}
               <div className="pt-2 text-xs text-slate-400 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
-                <span>Serving Vijinapura, Dooravani Nagar &amp; surrounding Bangalore areas</span>
+                <MapPin className="w-4 h-4 text-blue-400 shrink-0" />
+                <span>
+                  Krishnamurti Bldg, Vijinapura, Dooravani Nagar, Bengaluru &bull; Opp. FCI Godown, Near Balamurli Temple
+                </span>
               </div>
             </div>
 
@@ -190,7 +199,7 @@ export default function HomePage() {
                     </span>
                   </div>
                   <span className="text-[10px] font-mono bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded border border-blue-400/30">
-                    Fiber &bull; LAN &bull; WiFi &bull; CCTV
+                    Fiber &bull; LAN &bull; CCTV &bull; Splicing
                   </span>
                 </div>
 
@@ -202,7 +211,7 @@ export default function HomePage() {
                       <Zap className="w-4 h-4" />
                     </div>
                     <div className="text-xs font-bold text-white">Fiber Broadband</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">High-speed FTTH connectivity</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Hathway &amp; Excitel Partner</div>
                   </div>
 
                   {/* Node 2: WiFi Solutions */}
@@ -210,8 +219,8 @@ export default function HomePage() {
                     <div className="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-2">
                       <Wifi className="w-4 h-4" />
                     </div>
-                    <div className="text-xs font-bold text-white">Smart WiFi</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">Full-home / office coverage</div>
+                    <div className="text-xs font-bold text-white">Office LAN &amp; WiFi</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Full-premise network setup</div>
                   </div>
 
                   {/* Node 3: CCTV Security */}
@@ -219,8 +228,8 @@ export default function HomePage() {
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 mb-2">
                       <Lock className="w-4 h-4" />
                     </div>
-                    <div className="text-xs font-bold text-white">CCTV Systems</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">IP cameras &amp; monitoring</div>
+                    <div className="text-xs font-bold text-white">CCTV, DVR &amp; NVR</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Security camera networking</div>
                   </div>
 
                   {/* Node 4: Structured Cabling */}
@@ -228,8 +237,8 @@ export default function HomePage() {
                     <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 mb-2">
                       <Server className="w-4 h-4" />
                     </div>
-                    <div className="text-xs font-bold text-white">Network Cabling</div>
-                    <div className="text-[10px] text-slate-400 mt-0.5">CAT6, fiber &amp; rack setup</div>
+                    <div className="text-xs font-bold text-white">Cabling &amp; Splicing</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Fiber splicing &amp; chambers</div>
                   </div>
                 </div>
 
@@ -279,38 +288,38 @@ export default function HomePage() {
                 <Zap className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-sm font-bold text-white">High-Speed Connectivity</div>
-                <div className="text-xs text-slate-400">Fast fiber broadband</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
-                <Wrench className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white">Professional Installation</div>
-                <div className="text-xs text-slate-400">Trained local technicians</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
-                <Clock className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-white">Reliable Support</div>
-                <div className="text-xs text-slate-400">Direct phone &amp; WhatsApp</div>
+                <div className="text-sm font-bold text-white">Hathway &amp; Excitel Partner</div>
+                <div className="text-xs text-slate-400">High-speed fiber broadband</div>
               </div>
             </div>
 
             <div className="flex items-center gap-3.5">
               <div className="w-11 h-11 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+                <Server className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">Fiber Splicing &amp; Chambers</div>
+                <div className="text-xs text-slate-400">Fusion splicing &amp; CAT6 cabling</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-sm font-bold text-white">Quality Equipment</div>
-                <div className="text-xs text-slate-400">Certified routers &amp; cameras</div>
+                <div className="text-sm font-bold text-white">CCTV, DVR &amp; NVR</div>
+                <div className="text-xs text-slate-400">Complete security surveillance</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                <Clock className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">Direct Local Support</div>
+                <div className="text-xs text-slate-400">+91 96204 06789 &bull; Dooravani Nagar</div>
               </div>
             </div>
 

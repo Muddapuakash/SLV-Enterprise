@@ -15,13 +15,13 @@ export default function CablingPage() {
         <div className="container-max section-px">
           <div className="max-w-3xl">
             <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-400/30 rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
-              Physical Infrastructure
+              Physical Infrastructure &amp; Splicing
             </span>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-              Structured Network Cabling
+              Structural Network Cabling &amp; Fiber Splicing
             </h1>
             <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-              Professional CAT6 LAN wiring, fiber optic splicing, patch panel punch-downs, switch configurations, and server rack installations for Bangalore offices and commercial facilities.
+              Professional CAT6 LAN wiring, high-precision fiber-optic fusion splicing, chamber installations, premium routing, managed switches, and server rack installations for Bengaluru offices and commercial setups.
             </p>
             <div className="pt-6">
               <Link to="/request-service" className="btn-primary bg-purple-600 hover:bg-purple-700 text-xs py-3 px-6 shadow-purple-600/25">

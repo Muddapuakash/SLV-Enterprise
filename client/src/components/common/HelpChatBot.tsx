@@ -53,7 +53,7 @@ const FAQ: Record<string, { text: string; followUps?: string[] }> = {
     followUps: ['contact', 'plans'],
   },
   contact: {
-    text: `📞 Reach us anytime:\n\n• **Phone/WhatsApp**: 9620406789\n• **Alt Number**: 6302249065\n• **Email**: sventerprises161718@gmail.com\n• **Address**: 3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore 560016\n• **Hours**: 9 AM – 9 PM (Support: 24/7 for outages)`,
+    text: `📞 Reach us anytime:\n\n• **Phone/WhatsApp**: 9620406789\n• **Alt Number**: 6302249065\n• **Email**: sventerprises161718@gmail.com\n• **Office Address**: Krishnamurti Building, No. 127, 3rd Cross, near FCI Main Road, Vijinapura, Dooravani Nagar, Bengaluru 560016\n• **Landmark**: Directly opposite FCI Godown, Near Balamurli Temple\n• **Broadband Partners**: Hathway & Excitel\n• **Hours**: 9 AM – 9 PM (Support: 24/7 for outages)`,
     followUps: ['plans', 'coverage'],
   },
   ticket: {

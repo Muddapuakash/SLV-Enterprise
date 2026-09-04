@@ -62,10 +62,10 @@ export default function CCTVPage() {
               Surveillance &amp; Security
             </span>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-              CCTV Camera Installation &amp; Maintenance
+              CCTV, DVR &amp; NVR Surveillance Systems
             </h1>
             <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
-              Complete surveillance solutions for apartments, individual houses, retail shops, and commercial facilities. Crystal clear recording and secure remote mobile monitoring.
+              Turnkey surveillance system installations involving high-definition CCTV, DVR, and NVR security systems for apartments, homes, retail stores, and commercial facilities in Bengaluru.
             </p>
             <div className="pt-6">
               <a href="#site-visit" className="btn-primary bg-emerald-600 hover:bg-emerald-700 text-xs py-3 px-6 shadow-emerald-600/20">

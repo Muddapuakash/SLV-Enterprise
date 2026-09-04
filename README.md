@@ -8,13 +8,15 @@ Designed to reflect a legitimate Indian ISP and networking technology company wi
 
 ## 🏢 Business Identity
 
-- **Company**: SV Enterprises (ISP)
-- **Tagline**: *Fast. Reliable. Always. | Stay Connected, Stay Ahead*
-- **Headquarters**: 3rd Cross near FCI Main Road, Vijinapura Dooravani Nagar, Bangalore, Karnataka 560016
-- **Primary Helpline**: `+91 9620406789`
-- **Secondary Support**: `+91 6302249065`
+- **Company**: SV Enterprises
+- **Business Type**: Commercial Internet Service Provider (ISP) & Network Solutions Dealer
+- **Tagline**: *High-Speed Broadband & Network Solutions | Stay Connected, Stay Ahead*
+- **Headquarters**: Krishnamurti Building, No. 127, 3rd Cross, near FCI Main Road, Vijinapura, Dooravani Nagar, Bengaluru, Karnataka 560016
+- **Primary Landmarks**: Situated directly in close proximity to the Balamurli Temple and directly opposite the FCI Godown (Food Corporation of India).
+- **Broadband Partnerships**: Major Tier-1 providers including **Hathway** and **Excitel**
+- **Helplines**: `+91 96204 06789` (Primary Helpline) / `+91 63022 49065` (Support Desk)
 - **Official Email**: `sventerprises161718@gmail.com`
-- **Services**: High-Speed Internet, Enterprise & Home WiFi, CCTV Surveillance, Structured Cabling, Router Configuration, Network Maintenance
+- **Core Services**: High-speed fiber broadband, CCTV/DVR/NVR surveillance networking, office LAN setups, structural network cabling, fiber-optic fusion splicing, and chamber installations.
 
 ---
 
