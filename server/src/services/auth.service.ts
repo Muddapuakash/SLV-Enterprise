@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { prisma } from '../index';
-import { UserRole } from '@prisma/client';
+import { CustomerStatus, ConnectionStatus, UserRole } from '@prisma/client';
 import { AppError } from '../middleware/errorHandler.middleware';
 import { AuthPayload } from '../middleware/auth.middleware';
+import { generateCustomerId } from '../utils/id.utils';
 
 export class AuthService {
   static generateTokens(payload: AuthPayload) {
@@ -27,6 +28,58 @@ export class AuthService {
       data: { email, passwordHash, role },
       select: { id: true, email: true, role: true, createdAt: true },
     });
+
+    // Automatically link or create Customer profile if role is CUSTOMER
+    if (role === UserRole.CUSTOMER) {
+      const existingCustomer = await prisma.customer.findFirst({
+        where: { email: { equals: email, mode: 'insensitive' } },
+      });
+
+      if (existingCustomer) {
+        await prisma.customer.update({
+          where: { id: existingCustomer.id },
+          data: { userId: user.id },
+        });
+      } else {
+        const count = await prisma.customer.count();
+        const customerId = generateCustomerId(count);
+        const namePart = email.split('@')[0];
+        const name = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+        const plan = await prisma.plan.findFirst({
+          where: { isActive: true },
+          orderBy: { sortOrder: 'asc' },
+        });
+
+        await prisma.customer.create({
+          data: {
+            customerId,
+            userId: user.id,
+            name,
+            phone: '9876543210',
+            email,
+            address: 'Dooravani Nagar',
+            area: 'Vijinapura',
+            pincode: '560016',
+            status: CustomerStatus.ACTIVE,
+            subscriptions: plan
+              ? {
+                  create: {
+                    planId: plan.id,
+                    startDate: new Date(),
+                    isActive: true,
+                  },
+                }
+              : undefined,
+            connections: {
+              create: {
+                status: ConnectionStatus.CONNECTED,
+                ipAddress: '192.168.1.100',
+              },
+            },
+          },
+        });
+      }
+    }
 
     return user;
   }

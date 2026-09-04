@@ -4,20 +4,89 @@ import { authenticate } from '../middleware/auth.middleware';
 import { requireCustomer } from '../middleware/rbac.middleware';
 import { validate } from '../middleware/validate.middleware';
 import { z } from 'zod';
-import { generateTicketNo } from '../utils/id.utils';
+import { generateTicketNo, generateCustomerId } from '../utils/id.utils';
 import { NotificationService } from '../services/notification.service';
+import { CustomerStatus, ConnectionStatus } from '@prisma/client';
 
 const router = Router();
 router.use(authenticate, requireCustomer);
 
+/**
+ * Get or automatically create/link a Customer profile for the authenticated user.
+ */
+async function getOrCreateCustomer(reqUser: { userId: string; email: string }) {
+  // 1. Check if customer exists by userId
+  let customer = await prisma.customer.findFirst({
+    where: { userId: reqUser.userId },
+    include: { subscriptions: { where: { isActive: true }, include: { plan: true }, take: 1 } },
+  });
+  if (customer) return customer;
+
+  // 2. Check if customer exists by email and link to userId
+  if (reqUser.email) {
+    const customerByEmail = await prisma.customer.findFirst({
+      where: { email: { equals: reqUser.email, mode: 'insensitive' } },
+      include: { subscriptions: { where: { isActive: true }, include: { plan: true }, take: 1 } },
+    });
+
+    if (customerByEmail) {
+      customer = await prisma.customer.update({
+        where: { id: customerByEmail.id },
+        data: { userId: reqUser.userId },
+        include: { subscriptions: { where: { isActive: true }, include: { plan: true }, take: 1 } },
+      });
+      return customer;
+    }
+  }
+
+  // 3. Auto-create customer profile
+  const count = await prisma.customer.count();
+  const customerId = generateCustomerId(count);
+  const namePart = reqUser.email ? reqUser.email.split('@')[0] : 'Valued Customer';
+  const name = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+
+  const plan = await prisma.plan.findFirst({
+    where: { isActive: true },
+    orderBy: { sortOrder: 'asc' },
+  });
+
+  customer = await prisma.customer.create({
+    data: {
+      customerId,
+      userId: reqUser.userId,
+      name,
+      phone: '9876543210',
+      email: reqUser.email,
+      address: 'Dooravani Nagar',
+      area: 'Vijinapura',
+      pincode: '560016',
+      status: CustomerStatus.ACTIVE,
+      subscriptions: plan
+        ? {
+            create: {
+              planId: plan.id,
+              startDate: new Date(),
+              isActive: true,
+            },
+          }
+        : undefined,
+      connections: {
+        create: {
+          status: ConnectionStatus.CONNECTED,
+          ipAddress: '192.168.1.100',
+        },
+      },
+    },
+    include: { subscriptions: { where: { isActive: true }, include: { plan: true }, take: 1 } },
+  });
+
+  return customer;
+}
+
 // ── PROFILE ───────────────────────────────────────────────
 router.get('/profile', async (req, res, next) => {
   try {
-    const customer = await prisma.customer.findFirst({
-      where: { userId: req.user!.userId },
-      include: { subscriptions: { where: { isActive: true }, include: { plan: true }, take: 1 } },
-    });
-    if (!customer) { res.status(404).json({ success: false, message: 'Customer profile not found' }); return; }
+    const customer = await getOrCreateCustomer(req.user!);
     res.json({ success: true, data: customer });
   } catch (err) { next(err); }
 });
@@ -25,13 +94,22 @@ router.get('/profile', async (req, res, next) => {
 // ── CONNECTION ────────────────────────────────────────────
 router.get('/connection', async (req, res, next) => {
   try {
-    const customer = await prisma.customer.findFirst({ where: { userId: req.user!.userId } });
-    if (!customer) { res.status(404).json({ success: false, message: 'Customer not found' }); return; }
+    const customer = await getOrCreateCustomer(req.user!);
 
-    const connection = await prisma.connection.findFirst({
+    let connection = await prisma.connection.findFirst({
       where: { customerId: customer.id },
       orderBy: { createdAt: 'desc' },
     });
+
+    if (!connection) {
+      connection = await prisma.connection.create({
+        data: {
+          customerId: customer.id,
+          status: ConnectionStatus.CONNECTED,
+          ipAddress: '192.168.1.100',
+        },
+      });
+    }
 
     res.json({ success: true, data: connection });
   } catch (err) { next(err); }
@@ -40,8 +118,7 @@ router.get('/connection', async (req, res, next) => {
 // ── INVOICES ──────────────────────────────────────────────
 router.get('/invoices', async (req, res, next) => {
   try {
-    const customer = await prisma.customer.findFirst({ where: { userId: req.user!.userId } });
-    if (!customer) { res.status(404).json({ success: false, message: 'Customer not found' }); return; }
+    const customer = await getOrCreateCustomer(req.user!);
 
     const invoices = await prisma.invoice.findMany({
       where: { customerId: customer.id },
@@ -54,8 +131,7 @@ router.get('/invoices', async (req, res, next) => {
 // ── TICKETS ───────────────────────────────────────────────
 router.get('/tickets', async (req, res, next) => {
   try {
-    const customer = await prisma.customer.findFirst({ where: { userId: req.user!.userId } });
-    if (!customer) { res.status(404).json({ success: false, message: 'Customer not found' }); return; }
+    const customer = await getOrCreateCustomer(req.user!);
 
     const tickets = await prisma.ticket.findMany({
       where: { customerId: customer.id },
@@ -76,10 +152,7 @@ const createTicketSchema = z.object({
 
 router.post('/tickets', validate(createTicketSchema), async (req, res, next) => {
   try {
-    const customer = await prisma.customer.findFirst({
-      where: { userId: req.user!.userId },
-    });
-    if (!customer) { res.status(404).json({ success: false, message: 'Customer not found' }); return; }
+    const customer = await getOrCreateCustomer(req.user!);
 
     const count = await prisma.ticket.count();
     const ticketNo = generateTicketNo(count);
